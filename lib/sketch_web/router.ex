@@ -19,6 +19,16 @@ defmodule SketchWeb.Router do
     get "/", PageController, :index
   end
 
+  scope "/api", SketchWeb do
+    pipe_through :api
+
+    get "/canvas", CanvasController, :index
+    get "/canvas/:id", CanvasController, :show
+    put "/canvas/:id", CanvasController, :update
+    post "/canvas", CanvasController, :create
+    delete "/canvas/:id", CanvasController, :delete
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", SketchWeb do
   #   pipe_through :api

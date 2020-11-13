@@ -3,7 +3,7 @@ defmodule Sketch.Canvas.Rectangle do
   @canvas_row_size Application.get_env(:sketch, :default_canvas_size, 32)
   @canvas_column_size Application.get_env(:sketch, :default_canvas_size, 12)
   # Sketch.Canvas.Rectangle.draw(canvas, 1, 2, 2, 3, "%", "v")
-  def draw(canvas, x, y, width, height, outline_char, fill_char \\ nil) do
+  def draw(canvas, x, y, width, height, outline_char, fill_char) do
     if x < @canvas_row_size and y < @canvas_column_size do
       canvas = process_position(canvas, x, y, x, y, width, height, outline_char, fill_char)
       draw_row(canvas, x, y, width, height, outline_char, fill_char, x + 1, y)

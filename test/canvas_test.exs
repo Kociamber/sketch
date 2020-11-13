@@ -1,6 +1,6 @@
 defmodule Sketch.CanvasTest do
   # NOTE: I strongly recommend toggling soft wrap in your editor for this module.
-  use Sketch.DataCase
+  use ExUnit.Case, async: true
   alias Sketch.Canvas
   alias Sketch.Canvas.{Rectangle,Flood}
 

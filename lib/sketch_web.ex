@@ -22,7 +22,6 @@ defmodule SketchWeb do
       use Phoenix.Controller, namespace: SketchWeb
 
       import Plug.Conn
-      import SketchWeb.Gettext
       alias SketchWeb.Router.Helpers, as: Routes
     end
   end
@@ -54,7 +53,6 @@ defmodule SketchWeb do
   def channel do
     quote do
       use Phoenix.Channel
-      import SketchWeb.Gettext
     end
   end
 
@@ -67,7 +65,6 @@ defmodule SketchWeb do
       import Phoenix.View
 
       import SketchWeb.ErrorHelpers
-      import SketchWeb.Gettext
       alias SketchWeb.Router.Helpers, as: Routes
     end
   end

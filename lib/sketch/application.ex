@@ -7,8 +7,6 @@ defmodule Sketch.Application do
 
   def start(_type, _args) do
     children = [
-      # Start the Ecto repository
-      Sketch.Repo,
       # Start the Telemetry supervisor
       SketchWeb.Telemetry,
       # Start the PubSub system

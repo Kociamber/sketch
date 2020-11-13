@@ -8,7 +8,6 @@
 use Mix.Config
 
 config :sketch,
-  ecto_repos: [Sketch.Repo],
   default_row_size: 32,
   default_column_size: 12
 

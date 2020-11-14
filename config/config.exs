@@ -11,14 +11,14 @@ config :sketch,
   default_row_size: 32,
   default_column_size: 12,
   storage_name: :sketch_storage
-
+  
 # Configures the endpoint
 config :sketch, SketchWeb.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: "/FFQXtj8LVAqlSSU1ZUIwxONMwNemc4bLGhCTA1VGV3jfGT8vJQSlAQLR6k6eOE2",
+  secret_key_base: "Z9kDhEThPdguZah+GP/d/7WKOb/D7rAqbxr2MxxVz4f2mKgPA7vWBE0JWBIml0lG",
   render_errors: [view: SketchWeb.ErrorView, accepts: ~w(html json), layout: false],
   pubsub_server: Sketch.PubSub,
-  live_view: [signing_salt: "+qPmUA3p"]
+  live_view: [signing_salt: "uNS1HVzZ"]
 
 # Configures Elixir's Logger
 config :logger, :console,

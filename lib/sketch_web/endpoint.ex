@@ -7,7 +7,7 @@ defmodule SketchWeb.Endpoint do
   @session_options [
     store: :cookie,
     key: "_sketch_key",
-    signing_salt: "uURxvnVc"
+    signing_salt: "sAWNO0yW"
   ]
 
   socket "/socket", SketchWeb.UserSocket,

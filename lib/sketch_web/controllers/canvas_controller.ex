@@ -21,21 +21,25 @@ defmodule SketchWeb.CanvasController do
     else
       {:error, reason} ->
         conn
-        |> put_status(:internal_server_error)
-        |> put_view(SketchWeb.ErrorView)
-        |> render("500.json", message: reason)
+        |> put_status(500)
+        |> render("error.json", error: reason)
     end
   end
 
   def show(conn, %{"id" => id}) do
-    canvas = Storage.get(id)
-    render(conn, "show.json", canvas: canvas)
+    case Storage.get(id) do
+      nil ->
+        conn
+        |> put_status(404)
+        |> render("error.json", error: "not found")
+
+      canvas ->
+        render(conn, "show.json", canvas: canvas)
+    end
   end
 
   def update(conn, %{"id" => id, "operation" => operation} = params) do
     %{id: id, content: content} = Storage.get(id)
-
-    IO.inspect(params, label: "params~~~")
 
     with true <- params_valid?(operation, params),
          content = perform_operation(operation, content, params),
@@ -44,14 +48,11 @@ defmodule SketchWeb.CanvasController do
     else
       false ->
         conn
-        |> put_status(:bad_request)
-        |> put_view(SketchWeb.ErrorView)
-        |> render("400.json", message: "invalid or missing params")
+        |> put_status(400)
+        |> render("error.json", error: "bad request")
 
       {:error, reason} ->
-        conn
-        |> put_view(SketchWeb.ErrorView)
-        |> render("500.json", message: reason)
+        render(conn, "error.json", error: reason)
     end
   end
 
@@ -60,9 +61,7 @@ defmodule SketchWeb.CanvasController do
       send_resp(conn, :no_content, "")
     else
       {:error, reason} ->
-        conn
-        |> put_view(SketchWeb.ErrorView)
-        |> render("500.json", message: reason)
+        render(conn, "error.json", error: reason)
     end
   end
 

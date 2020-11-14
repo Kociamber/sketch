@@ -35,3 +35,5 @@ npm-debug.log
 
 # don't include DETS storage file
 sketch_storage
+sketch_storage_dev
+sketch_storage_test

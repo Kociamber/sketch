@@ -3,7 +3,7 @@ defmodule SketchWeb.CanvasView do
   alias SketchWeb.CanvasView
 
   def render("index.json", %{canvases: canvases}) do
-    %{canvas: render_many(canvases, CanvasView, "canvas.json")}
+    %{canvases: render_many(canvases, CanvasView, "canvas.json")}
   end
 
   def render("show.json", %{canvas: canvas}) do
@@ -12,5 +12,9 @@ defmodule SketchWeb.CanvasView do
 
   def render("canvas.json", %{canvas: canvas}) do
     %{id: canvas.id, content: canvas.content}
+  end
+
+  def render("error.json", %{error: error}) do
+    %{error: error}
   end
 end

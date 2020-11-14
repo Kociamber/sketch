@@ -14,17 +14,19 @@ defmodule Sketch.Storage do
       [%{id: "17e2efc8...", content: %{0 => %{...}}, ...]
 
   """
+  @storage_name Application.get_env(:sketch, :storage_name)
+
   @spec list() :: list(map()) | {:error, term()}
   def list() do
-    :dets.open_file(:sketch_storage, type: :set)
+    :dets.open_file(@storage_name, type: :set)
 
     result =
-      case :dets.select(:sketch_storage, [{:"$1", [], [:"$1"]}]) do
+      case :dets.select(@storage_name, [{:"$1", [], [:"$1"]}]) do
         {:error, reason} -> {:error, reason}
         list -> Enum.into(list, [], fn {key, value} -> %{id: key, content: value} end)
       end
 
-    :dets.close(:sketch_storage)
+    :dets.close(@storage_name)
     result
   end
 
@@ -40,16 +42,16 @@ defmodule Sketch.Storage do
   """
   @spec get(String.t()) :: map() | nil | {:error, term()}
   def get(id) do
-    :dets.open_file(:sketch_storage, type: :set)
+    :dets.open_file(@storage_name, type: :set)
 
     result =
-      case :dets.lookup(:sketch_storage, id) do
+      case :dets.lookup(@storage_name, id) do
         [] -> nil
         {:error, reason} -> {:error, reason}
         [{id, content}] -> %{id: id, content: content}
       end
 
-    :dets.close(:sketch_storage)
+    :dets.close(@storage_name)
     result
   end
 
@@ -65,15 +67,15 @@ defmodule Sketch.Storage do
   @spec create(map()) :: {:ok, map()} | {:error, term()}
   def create(content) do
     id = UUID.uuid1()
-    :dets.open_file(:sketch_storage, type: :set)
+    :dets.open_file(@storage_name, type: :set)
 
     {atom, result} =
-      case :dets.insert_new(:sketch_storage, {id, content}) do
+      case :dets.insert_new(@storage_name, {id, content}) do
         true -> {:ok, %{id: id, content: content}}
         {:error, reason} -> {:error, reason}
       end
 
-    :dets.close(:sketch_storage)
+    :dets.close(@storage_name)
     {atom, result}
   end
 
@@ -91,18 +93,18 @@ defmodule Sketch.Storage do
   """
   @spec update(String.t(), map) :: {:ok, map()} | {:error, term()}
   def update(id, content) do
-    :dets.open_file(:sketch_storage, type: :set)
+    :dets.open_file(@storage_name, type: :set)
 
     result =
-      with [{id, _content}] <- :dets.lookup(:sketch_storage, id),
-           :ok <- :dets.insert(:sketch_storage, {id, content}) do
+      with [{id, _content}] <- :dets.lookup(@storage_name, id),
+           :ok <- :dets.insert(@storage_name, {id, content}) do
         {:ok, %{id: id, content: content}}
       else
         [] -> {:error, "canvas does not exist"}
         {:error, reason} -> {:error, reason}
       end
 
-    :dets.close(:sketch_storage)
+    :dets.close(@storage_name)
     result
   end
 
@@ -120,18 +122,18 @@ defmodule Sketch.Storage do
   """
   @spec delete(String.t()) :: {:ok, map()} | {:error, term()}
   def delete(id) do
-    :dets.open_file(:sketch_storage, type: :set)
+    :dets.open_file(@storage_name, type: :set)
 
     result =
-      with [{id, content}] <- :dets.lookup(:sketch_storage, id),
-           :ok <- :dets.delete(:sketch_storage, id) do
+      with [{id, content}] <- :dets.lookup(@storage_name, id),
+           :ok <- :dets.delete(@storage_name, id) do
         {:ok, %{id: id, content: content}}
       else
         [] -> {:error, "canvas does not exist"}
         {:error, reason} -> {:error, reason}
       end
 
-    :dets.close(:sketch_storage)
+    :dets.close(@storage_name)
     result
   end
 end

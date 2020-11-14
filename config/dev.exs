@@ -11,6 +11,7 @@ config :sketch, SketchWeb.Endpoint,
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
+  storage_name: :sketch_storage_dev,
   watchers: [
     node: [
       "node_modules/webpack/bin/webpack.js",

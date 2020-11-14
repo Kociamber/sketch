@@ -5,14 +5,14 @@ defmodule SketchWeb.CanvasControllerTest do
   alias Sketch.Canvas.{Rectangle, Flood}
 
   @update_attrs %{operation: "rectangle", x: 1, y: 2, width: 5, height: 5, fill_char: "#"}
-  @invalid_attrs %{operation: "kiełbasa"}
+  @invalid_attrs %{operation: "flood", x: 0, y: 2, fill_char: "kiełbasa"}
 
   setup %{conn: conn} do
     # clear test env DETS file
     File.rm("sketch_storage_test")
     # generate test canvas with few drawing operations applied
     canvas = create_test_canvas()
-
+    on_exit(fn -> File.rm("sketch_storage_test") end)
     {:ok, conn: put_req_header(conn, "accept", "application/json"), canvas: canvas}
   end
 

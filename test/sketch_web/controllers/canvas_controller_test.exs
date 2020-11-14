@@ -31,25 +31,25 @@ defmodule SketchWeb.CanvasControllerTest do
     conn = get(conn, Routes.canvas_path(conn, :show, id))
 
     assert %{
-             "id" => id,
-             "content" => content
+             "id" => ^id,
+             "content" => ^content
            } = json_response(conn, 200)["canvas"]
   end
 
   describe "update canvas" do
-    test "renders canvas when data is valid", %{conn: conn, canvas: %{"id" => id} = canvas} do
+    test "renders canvas when data is valid", %{conn: conn, canvas: %{"id" => id}} do
       conn = put(conn, Routes.canvas_path(conn, :update, id), @update_attrs)
       assert %{"id" => ^id} = json_response(conn, 200)["canvas"]
 
       conn = get(conn, Routes.canvas_path(conn, :show, id))
 
       assert %{
-               "id" => id,
+               "id" => ^id,
                "content" => %{}
              } = json_response(conn, 200)["canvas"]
     end
 
-    test "renders errors when data is invalid", %{conn: conn, canvas: %{"id" => id} = canvas} do
+    test "renders errors when data is invalid", %{conn: conn, canvas: %{"id" => id}} do
       conn = put(conn, Routes.canvas_path(conn, :update, id), @invalid_attrs)
 
       assert json_response(conn, 400)["error"] == "bad request"

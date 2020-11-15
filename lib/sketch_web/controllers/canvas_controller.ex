@@ -1,7 +1,6 @@
 defmodule SketchWeb.CanvasController do
   use SketchWeb, :controller
-  alias Sketch.Storage
-  alias Sketch.Canvas
+  alias Sketch.{Canvas, Storage, PubSub}
   alias Sketch.Canvas.{Flood, Rectangle}
   action_fallback SketchWeb.FallbackController
 
@@ -14,7 +13,10 @@ defmodule SketchWeb.CanvasController do
   end
 
   def create(conn, _params) do
-    with {:ok, canvas} <- Storage.create(Canvas.new()) do
+    with {:ok, %{id: id} = canvas} <- Storage.create(Canvas.new()) do
+      PubSub.broadcast_update_notification()
+      PubSub.broadcast_update_notification(id)
+
       conn
       |> put_status(:created)
       |> render("show.json", canvas: canvas)
@@ -44,6 +46,8 @@ defmodule SketchWeb.CanvasController do
     with true <- params_valid?(operation, params),
          content = perform_operation(operation, content, params),
          {:ok, canvas} <- Storage.update(id, content) do
+      PubSub.broadcast_update_notification()
+      PubSub.broadcast_update_notification(id)
       render(conn, "show.json", canvas: canvas)
     else
       false ->
@@ -58,6 +62,8 @@ defmodule SketchWeb.CanvasController do
 
   def delete(conn, %{"id" => id}) do
     with {:ok, _canvas} <- Storage.delete(id) do
+      PubSub.broadcast_update_notification()
+      PubSub.broadcast_update_notification(id)
       send_resp(conn, :no_content, "")
     else
       {:error, reason} ->

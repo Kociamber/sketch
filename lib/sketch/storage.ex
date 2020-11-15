@@ -4,7 +4,7 @@ defmodule Sketch.Storage do
   functions.
   All CRUD functions are returning the data in the same way as Ecto repo all would.
   """
-
+  @storage_name Application.get_env(:sketch, :storage_name)
   @doc """
   Returns the list of canvases.
 
@@ -14,8 +14,6 @@ defmodule Sketch.Storage do
       [%{id: "17e2efc8...", content: %{0 => %{...}}, ...]
 
   """
-  @storage_name Application.get_env(:sketch, :storage_name)
-
   @spec list() :: list(map()) | {:error, term()}
   def list() do
     :dets.open_file(@storage_name, type: :set)

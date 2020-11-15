@@ -17,7 +17,8 @@ defmodule SketchWeb.Router do
   scope "/", SketchWeb do
     pipe_through :browser
 
-    live "/", PageLive, :index
+    live "/", PageLive
+    live "/:id", CanvasLive
   end
 
   scope "/api", SketchWeb do

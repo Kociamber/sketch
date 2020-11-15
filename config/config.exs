@@ -11,7 +11,7 @@ config :sketch,
   default_row_size: 32,
   default_column_size: 12,
   storage_name: :sketch_storage
-  
+
 # Configures the endpoint
 config :sketch, SketchWeb.Endpoint,
   url: [host: "localhost"],

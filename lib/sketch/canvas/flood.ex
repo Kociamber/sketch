@@ -1,6 +1,20 @@
 defmodule Sketch.Canvas.Flood do
-  # Queue based Flood-Fill (Forest Fire) recursive algorithm implementation (https://en.wikipedia.org/wiki/Flood_fill).
-  # Sketch.Canvas.Flood.fill(canvas, 1, 1, "v")
+  @moduledoc """
+  Queue based Flood-Fill (Forest Fire) recursive algorithm implementation (https://en.wikipedia.org/wiki/Flood_fill).
+  """
+
+  @doc """
+  Fills canvas as per provided params.
+
+  ## Examples
+
+      iex> canvas = Sketch.Canvas.new()
+      %{0 => %{...}}}
+      fill(canvas, 1, 2, "#")
+      %{0 => %{...}}}
+
+  """
+  @spec fill(map(), integer(), integer(), String.t()) :: map()
   def fill(canvas, x, y, fill_char) do
     queue = :queue.new()
     queue = :queue.in({x, y}, queue)
@@ -11,8 +25,6 @@ defmodule Sketch.Canvas.Flood do
   defp flood_fill(canvas, _fill_char, _target_char, {:empty, _}), do: canvas
 
   defp flood_fill(canvas, fill_char, target_char, {{:value, queue_head}, queue}) do
-    # NOTE: unfortunately I haven't been able to use patternmatching on the function head like on below example:
-    # defp fill(canvas, fill_char, target_char, {{:value, {y, x}}, queue}) do
     {x, y} = queue_head
 
     {canvas, queue} =

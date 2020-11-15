@@ -1,8 +1,25 @@
 defmodule Sketch.Canvas.Rectangle do
+  @moduledoc """
+  Authorial rectangle drawing algorithm implementation.
+  """
   # NOTE: Because as per assignment - "The canvas can be assumed to be a fixed size".
   @canvas_row_size Application.get_env(:sketch, :default_canvas_size, 32)
   @canvas_column_size Application.get_env(:sketch, :default_canvas_size, 12)
-  # Sketch.Canvas.Rectangle.draw(canvas, 1, 2, 2, 3, "%", "v")
+
+  @doc """
+  Performs rectangle drawing operation on the canvas as per provided params.
+  The function starts its travel with initial coordinates, checks each position whether it’s an
+  outline point or canvas border and based on provided params - fills it with desired outline or
+  fill character.
+
+  ## Examples
+
+      iex> canvas = Sketch.Canvas.new()
+      %{0 => %{...}}}
+      draw(canvas, 1, 2, 2, 3, "%", "v")
+      %{0 => %{...}}}
+
+  """
   def draw(canvas, x, y, width, height, outline_char, fill_char) do
     if x < @canvas_row_size and y < @canvas_column_size do
       canvas = process_position(canvas, x, y, x, y, width, height, outline_char, fill_char)

@@ -1,6 +1,6 @@
 defmodule Sketch.Storage do
   @moduledoc """
-  Wrapper around Erlang's DETS. Provides easy canvas persistance on disk and storage access
+  Wrapper around Erlang's DETS. Provides easy canvas persistance on disk and the storage access
   functions.
   All CRUD functions are returning the data in the same way as Ecto repo all would.
   """

@@ -1,5 +1,6 @@
 defmodule Sketch.MixProject do
   use Mix.Project
+  @github_url "https://github.com/Kociamber/sketch"
 
   def project do
     [
@@ -9,6 +10,16 @@ defmodule Sketch.MixProject do
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
+      # Docs
+      name: "Sketch",
+      description: "An assignment for Sketch",
+      source_url: @github_url,
+      homepage_url: @github_url,
+      package: [
+        maintainers: ["Rafał Kociszewski"],
+        licenses: ["MIT"],
+        links: %{"GitHub" => @github_url}
+      ],
       aliases: aliases(),
       deps: deps()
     ]

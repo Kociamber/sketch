@@ -3,6 +3,9 @@
   <tr>
     <th colspan="32" style="text-align: center;"><%= @canvas.id %></th>
   </tr>
+  <tr>
+    <th colspan="32" style="text-align: center;"><a href="/">Go back.</a></th>
+  </tr>
   </thead>
   <tbody>
     <%= Enum.map(@canvas.content, fn({_y, x})-> %>

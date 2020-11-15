@@ -1,19 +1,38 @@
 # Sketch
 
-To start your Phoenix server:
+Client-server system representing an ASCII art drawing canvas. It implements:
 
-  * Install dependencies with `mix deps.get`
-  * Install Node.js dependencies with `npm install` inside the `assets` directory
-  * Start Phoenix endpoint with `mix phx.server`
+*   JSON based RESTful endpoint.
+*   Two canvas operations - rectangle drawing and flood-fill.
+*   DETS based canvas persistence mechanism (no DB needed!)
+*   Phenix LiveView based client (read only)
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+## Install and run locally
+  * Clone repo with `git clone https://github.com/Kociamber/sketch.git`.
+  * Perform the required application setup with `mix setup`.
+  * Start the endpoint with `mix run` or `iex -S mix phx.server` (with interactive console).
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+## Usage
 
-## Learn more
+To access LiveView based client visit [`localhost:4000`](http://localhost:4000) from your browser.    
 
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+After the setup your local storage is empty - you can quickly create (an assignement test fixture based) canvas you can run the seedfile with `mix seed`.  
+
+To "clear" your storage simply delete `sketch_storage` file from the project's root directory.
+
+Browser's routes:
+```
+    /      - shows all locally storred canvases
+    /:id   - shows a specific canvas
+```
+
+JSON endpoint requests routes:
+* `post` `/canvas`: creates, persists and returns empty canvas, no body params required
+* `get` `/canvas`: returns a list of currently stored canvases
+* `get` `/canvas/:id`: returns canvas by id, no body params required
+* `put` `/canvas/:id`: performs flood or rectangle draw operation, returns "updated" canvas (requred body params below)
+* `delete` `/canvas/:id` - removes canvas and returns deleted structure, no body params required
+
+required `put` params:
+* x: integer
+* y: integer

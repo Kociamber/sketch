@@ -1,4 +1,7 @@
 defmodule SketchWeb.CanvasController do
+  @moduledoc """
+  Implements simple RESTful controller behaviour.
+  """
   use SketchWeb, :controller
   alias Sketch.{Canvas, Storage, PubSub}
   alias Sketch.Canvas.{Flood, Rectangle}

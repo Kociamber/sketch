@@ -41,15 +41,18 @@ defmodule SketchWeb.CanvasController do
   end
 
   def update(conn, %{"id" => id, "operation" => operation} = params) do
-    %{id: id, content: content} = Storage.get(id)
-
-    with true <- params_valid?(operation, params),
+    with %{id: id, content: content} <- Storage.get(id),
+        true <- params_valid?(operation, params),
          content = perform_operation(operation, content, params),
          {:ok, canvas} <- Storage.update(id, content) do
       PubSub.broadcast_update_notification()
       PubSub.broadcast_update_notification(id)
       render(conn, "show.json", canvas: canvas)
     else
+      nil ->
+        conn
+        |> put_status(404)
+        |> render("error.json", error: "not found")
       false ->
         conn
         |> put_status(400)

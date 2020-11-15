@@ -54,6 +54,12 @@ defmodule SketchWeb.CanvasControllerTest do
 
       assert json_response(conn, 400)["error"] == "bad request"
     end
+
+    test "renders errors when canvas not found", %{conn: conn} do
+      conn = put(conn, Routes.canvas_path(conn, :update, "I'm a pickle!"), @update_attrs)
+
+      assert json_response(conn, 404)["error"] == "not found"
+    end
   end
 
   describe "delete canvas" do

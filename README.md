@@ -9,16 +9,16 @@ Client-server system representing an ASCII art drawing canvas. It implements:
 
 ## Install and run locally
   * Clone repo with `git clone https://github.com/Kociamber/sketch.git`.
-  * Perform the required application setup with `mix setup`.
+  * Enter the folder (`cd sketch`) and perform required setup with `mix setup`.
   * Start the endpoint with `mix run` or `iex -S mix phx.server` (with interactive console).
 
 ## Usage
 
 To access LiveView based client visit [`localhost:4000`](http://localhost:4000) from your browser.    
 
-After the setup your local storage is empty - you can quickly create (an assignement test fixture based) canvas you can run the seedfile with `mix seed`.  
+After the setup your local storage is empty - you can quickly create (an assignment test fixture based) canvas you can run the seedfile with `mix seed`.  
 
-To "clear" your storage simply delete `sketch_storage` file from the project's root directory.
+To "clear" your storage run `mix clear_storage` or simply delete `sketch_storage` file from the project's root directory.
 
 Browser's routes:
 ```
@@ -33,7 +33,7 @@ JSON endpoint requests routes:
 * `put` `/canvas/:id`: performs flood or rectangle draw operation, returns "updated" canvas (requred body params below)
 * `delete` `/canvas/:id` - removes canvas and returns deleted structure, no body params required
 
-Bodyparams required for `put` (canvas drawing operation) - drawing rectangle:
+Body params required for `put` (canvas drawing operation) - drawing rectangle:
 
 ```json
 {"operation":"rectangle","x":7, "y":10,"width":40,"height":15,"fill_char":"#", "outline_char":"+"}
@@ -42,13 +42,15 @@ Bodyparams required for `put` (canvas drawing operation) - drawing rectangle:
 * all numeric values must be integers greater than or equal 0
 * `fill_char` and `outline_char` can be only strings of length 1
 
-Bodyparams required for `put` (canvas drawing operation) - performing flood operation:
+Flood operation required params:
 ```json
 {"operation":"flood","x":3, "y":3,"fill_char":"7"}
 ```
 * all params are mandatory
 * all numeric values must be integers greater than or equal 0
 * `fill_char` can be only a strings of length 1
+
+The server is performing validation and in case of missing or incorrect params json error message is being returned.
 
 ### Sample API calls
 Get a list of all stored canvases:  

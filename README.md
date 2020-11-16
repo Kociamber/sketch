@@ -4,8 +4,8 @@ Client-server system representing an ASCII art drawing canvas. It implements:
 
 *   JSON based RESTful endpoint.
 *   Two canvas operations - rectangle drawing and flood-fill.
-*   DETS based canvas persistence mechanism (no DB needed!)
-*   Phenix LiveView based client (read only)
+*   Erlang [`DETS`](https://erlang.org/doc/man/dets.html) based canvas persistence mechanism (no DB needed!).
+*   [`Phenix LiveView`](https://github.com/phoenixframework/phoenix_live_view) based client (read only).
 
 ## Install and run locally
   * Clone repo with `git clone https://github.com/Kociamber/sketch.git`.
@@ -50,7 +50,7 @@ Flood operation required params:
 * all numeric values must be integers greater than or equal 0
 * `fill_char` can be only a strings of length 1
 
-The server is performing validation and in case of missing or incorrect params json error message is being returned.
+The server is performing request parameters validation and in case of missing or incorrect values json error message is being returned.
 
 ### Sample API calls
 Get a list of all stored canvases:  

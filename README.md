@@ -2,15 +2,15 @@
 
 Client-server system representing an ASCII art drawing canvas. It implements:
 
-*   JSON based RESTful endpoint.
-*   Two canvas operations - rectangle drawing and flood-fill.
-*   Erlang [`DETS`](https://erlang.org/doc/man/dets.html) based canvas persistence mechanism (no DB needed!).
-*   [`Phenix LiveView`](https://github.com/phoenixframework/phoenix_live_view) based client (read only).
+*   JSON based RESTful endpoint
+*   Two canvas operations - rectangle drawing and flood-fill
+*   Erlang [`DETS`](https://erlang.org/doc/man/dets.html) based canvas persistence mechanism (no DB needed!)
+*   [`Phenix LiveView`](https://github.com/phoenixframework/phoenix_live_view) based client (read only)
 
 ## Install and run locally
-  * Clone repo with `git clone https://github.com/Kociamber/sketch.git`.
-  * Enter the folder (`cd sketch`) and perform required setup with `mix setup`.
-  * Start the endpoint with `mix run` or `iex -S mix phx.server` (with interactive console).
+  * Clone repo with `git clone https://github.com/Kociamber/sketch.git`
+  * Enter the folder (`cd sketch`) and perform required setup with `mix setup`
+  * Start the endpoint with `mix run` or `iex -S mix phx.server` (with interactive console)
 
 ## Usage
 

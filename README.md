@@ -8,7 +8,7 @@ Client-server system representing an ASCII art drawing canvas. It implements:
 *   [`Phenix LiveView`](https://github.com/phoenixframework/phoenix_live_view) based client (read only)
 
 ## Install and run locally
-  * Clone repo with `git clone https://github.com/Kociamber/sketch.git`
+  * Clone repo with `git clone https://github.com/Kociamber/sketch.git` (or unzip the package if you got it from Joanna ;])
   * Enter the folder (`cd sketch`) and perform required setup with `mix setup`
   * Start the endpoint with `mix run` or `iex -S mix phx.server` (with interactive console)
 

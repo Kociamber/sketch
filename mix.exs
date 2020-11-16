@@ -59,7 +59,10 @@ defmodule Sketch.MixProject do
       setup: ["deps.get", "cmd npm install --prefix assets"],
       run: ["phx.server"],
       # seed: ["run priv/seeds/seedfile.exs"]
-      seed: ["run priv/seeds/canvas.exs"]
+      seed: ["run priv/seeds/canvas.exs"],
+      clear_storage: ["cmd rm sketch_storage"],
+      clear_dev_storage: ["cmd rm sketch_storage_dev"],
+      clear_test_storage: ["cmd rm sketch_storage_test"]
     ]
   end
 end
